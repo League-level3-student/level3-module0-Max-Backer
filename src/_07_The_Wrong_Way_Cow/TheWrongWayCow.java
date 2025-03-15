@@ -50,23 +50,59 @@ package _07_The_Wrong_Way_Cow;
 
 public class TheWrongWayCow {
 
-    public static int[] findWrongWayCow(final char[][] field) {
-        // Fill in the code to return the [col, row] coordinate position of the
-        // head (letter 'c') of the wrong way cow!
-    	int verticalCow = 0;
-    	
-    	for(int i = 0; i < field.length; i++) { 
-    		for(int j = 0; j < field[i].length; j++) {
-    			if(field[i][j] == 'c') {
-    				if(field[i-1][j] == 'o')  {
-    					if(field[i-2][j] == 'w') {
-    						verticalCow++;
-    					}
-    				}
-    			}
-    		}
-    	}
-        
-        return null;
-    }
+	public static int[] findWrongWayCow(final char[][] field) {
+		// Fill in the code to return the [col, row] coordinate position of the
+		// head (letter 'c') of the wrong way cow!
+		int northCow = 0;
+		int southCow = 0;
+		int westCow = 0;
+		int eastCow = 0;
+		
+		int northCord[] = null, southCord[] = null, westCord[] = null, eastCord[] = null;
+
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (i-2 >= 0 && field[i][j] == 'c' && field[i - 1][j] == 'o' && field[i - 2][j] == 'w') {
+					northCow++;
+					northCord = new int[] {j,i};
+				}
+			}
+		}
+
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (i+2 < field.length && field[i][j] == 'c' && field[i + 1][j] == 'o' && field[i + 2][j] == 'w') {
+					southCow++;
+					southCord = new int[] {j,i};
+				}
+			}
+		}
+
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (j-2 >= 0 && field[i][j] == 'c' && field[i][j - 1] == 'o' && field[i][j - 2] == 'w') {
+					westCow++;
+					westCord = new int[] {j, i};
+
+				}
+			}
+		}
+
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (j+2 < field[i].length && field[i][j] == 'c' && field[i][j + 1] == 'o' && field[i][j + 2] == 'w') {
+					eastCow++;
+					eastCord = new int[] {j,i};
+				}
+			}
+		}
+		
+		if(northCow == 1) return northCord;
+		if(southCow == 1) return southCord;
+		if(westCow == 1) return westCord;
+		if(eastCow == 1) return eastCord;
+		
+
+		return null;
+	}
 }
